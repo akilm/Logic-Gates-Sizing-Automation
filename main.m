@@ -2,5 +2,6 @@ LOGIC_String = input('Enter the LOGIC String \nSpecified Format: <No_Inputs>-<Ga
 gamma = input('Enter the Gamma Value')
 Cout = input('enter the Load Capacitance in pf')
 Cin = CIN(LOGIC_String,Width,gamma,Cout)
-
+% FO4 = (gamma+1)*inv 
+% inv = 3*tow
 end
