@@ -1,4 +1,4 @@
-function Pd = Dynamic_Power(Gate_type,no_inputs,C_out,Vdd,f)
+function [alpha,P] = Dynamic_Power(Gate_type,no_inputs,C_out)
     
     P = zeros(1,length(Gate_type))
     alpha = zeros(1,length(Gate_type))
@@ -31,6 +31,6 @@ function Pd = Dynamic_Power(Gate_type,no_inputs,C_out,Vdd,f)
     end
     Pd = 0 
     for i = 1:length(Gate_type)
-        Pd =Pd + alpha(i)*C_out(i)*Vdd^2*f
+        Pd =PD
     
 end

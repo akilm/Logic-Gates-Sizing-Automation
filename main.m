@@ -1,7 +1,4 @@
-LOGIC_String = input('Enter the LOGIC String \nSpecified Format: <No_Inputs>-<Gate_Type>-<No_Branches> <No_Inputs>-<Gate_Type>-<No_Branches>  \nSample Formats : 4-NAND-3 1-INV-2 5-NOR-3 \n ')
-gamma = input('Enter the Gamma Value')
-Cout = input('enter the Load Capacitance in pf')
-Cin = CIN(LOGIC_String,Width,gamma,Cout)
 % FO4 = (gamma+1)*inv 
 % inv = 3*tow
-end
+[d,C_out,Gate_type,No_inputs] = effort_delay('3-NAND-0 1-INV-4',3,2,20,1)
+pd = Dynamic_Power(Gate_type,No_inputs,C_out,5,1000)
