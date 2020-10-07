@@ -11,7 +11,7 @@ function [d,C_out,Gate_Type,No_inputs] = d(LOGIC_String,Width,gamma,C_L,Pinv)
        No_inputs(i) = str2double(cell2mat(str(1)))
        Gate_Type(i) = string(str(2))
        No_Branches(i) = cell2mat(str(3))
-       C_in(i) =  Cin_tot(No_inputs(i),Gate_Type(i),Width,gamma)
+       C_in(i) =  Cin_tot(No_inputs(i),Gate_Type(i),Width(i),gamma)
        g(i) = logic_effort(Gate_Type(i),No_inputs(i),gamma)
        p(i) = parasitic_delay(Gate_Type(i),No_inputs(i),1)
     end
