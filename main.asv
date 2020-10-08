@@ -18,12 +18,12 @@ Target_nm = input('\n Enter the target fabrication technology')
 FO_4 = input('\Enter the FO_4 delay in the target fabrication technology')
 Vdd = input('\n Enter the Vdd Value in V')
 pinv = input('\n Enter the Cg/Cd ratio')
-Cg = input('\n Enter the Capacitance in Ff/um ')
-Cd = Cg/pinv;
-lower_limit = Target_nm/1000;
-higher_limit = (Target_nm*1000)/1000;
-W = (higher_limit-lower_limit).*rand(N,1) + lower_limit;
-%% Fitness Functions 
+Cg = input('\n Enter the input capacitance of an unit drive strength inverter')
+Cd = Cg/pinv
+lower_limit = Target_nm
+higher_limit = Target_nm*1000
+W =(higher_limit-lower_limit).*rand(N,1) + lower_limit;
+%% Fitness Functions
 [d,C_out,C_in,Gate_type,No_inputs] = effort_delay(logic_string,W,gamma,Cload,pinv) 
-abs_delay = d*3*(FO_4)/5     %FO_4 delay is equal to 5 x time constants (tow) picoseconds
-pd = Dynamic_Power(Gate_type,No_inputs,C_out,C_in,Vdd,f) 
+abs_delay = d*3*(FO_4)/5     %FO_4 delay is equal to 5 x time constants (tow)
+pd = Dynamic_Power(Gate_type,No_inputs,C_out,C_in,Vdd,f)
