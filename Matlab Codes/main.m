@@ -22,7 +22,8 @@ Cd = input('\n Enter Cgd Ff/um for the process');
 lower_limit = Target_nm/1000;
 higher_limit = (Target_nm*1000)/1000;
 W = (higher_limit-lower_limit).*rand(N,1) + lower_limit;
-%% Fitness Functions 
-[d,C_out,C_in,Gate_type,No_inputs] = effort_delay(logic_string,W,gamma,Cload,pinv) 
+pinv = Cd/Cg ;
+%% Fitness Functions ss
+[d,C_out,C_in,Gate_type,No_inputs] = effort_delay(logic_string,W,gamma,Cload,pinv,Cg,Cd) 
 abs_delay = d*3*(FO_4)/5     %FO_4 delay is equal to 5 x time constants (tow) picoseconds
 pd = Dynamic_Power(Gate_type,No_inputs,C_out,C_in,Vdd,f) 
