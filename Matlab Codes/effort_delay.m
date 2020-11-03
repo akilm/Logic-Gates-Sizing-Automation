@@ -1,4 +1,4 @@
-function [d,C_out,C_in,Gate_Type,No_inputs] = d(LOGIC_String,Width,gamma,C_L,Pinv,Cg,Cd)
+function [d,C_out_temp,C_out,C_in,Gate_Type,No_inputs] = d(LOGIC_String,Width,gamma,C_L,Pinv,Cg,Cd)
     stage = split(LOGIC_String)
     C_in = zeros(1,length(stage))
     C_out_temp = zeros(1,length(stage))
@@ -18,7 +18,7 @@ function [d,C_out,C_in,Gate_Type,No_inputs] = d(LOGIC_String,Width,gamma,C_L,Pin
     end
     for i = 1:length(stage)
         if i ~= length(stage)
-            C_out(i) = C_in(i+1)*No_Branches(i+1)
+            C_out(i) = C_in(i+1)*(No_Branches(i+1)+1)
         else
             C_out(i) = C_L
         end
