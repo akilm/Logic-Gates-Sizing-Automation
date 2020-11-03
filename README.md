@@ -1,4 +1,6 @@
 # Analog-Design-Sizing-Automation
+
+### **Project still under progress** ###
 ## Abstract :   
 Determining the sizing of transistors using heuristic algorithms and logical effort to obtain optimal delay and power 
 
@@ -8,7 +10,7 @@ Increasing the width of the MOS transistors (Indirectly W/L ratio) decrease the 
 ## Tools:
 Matlab : For running the equations and algorithms ; The optimum size of the transistors for each stage are theoretically found using Matlab and stored in a text file  
 
-LTSpice: The Computed sizes are verified for optimum performance using LTSpice.
+NGSpice: The Computed sizes are verified for optimum performance using NGSpice.
 
 ## Team:
 * Akil M
