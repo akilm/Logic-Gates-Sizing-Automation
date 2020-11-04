@@ -9,7 +9,7 @@
 % For multi-stage:
 % enter in the same format leaving a space in between
 % Example :-'1-INV-0 2-NAND-0 3-NOR-0' 
-logic_string = '1-INV-0 2-NAND-0 3-NOR-0' %input('\n Enter the input stage logic in the specified format')
+logic_string = '1-INV-0 2-NAND-0'% 3-NOR-0' %input('\n Enter the input stage logic in the specified format')
 N = length(split(logic_string))
 Cload = 500 %input('\n Enter the Load Capacitance on the final Stage in fF')
 gamma = 2.3 %input('\n Enter the gamma value (Pmos/Nmos width ratio in an inverter for equal Conductance)')
@@ -23,8 +23,23 @@ lower_limit = Target_um;
 higher_limit = (Target_um)*5;
 W = (higher_limit-lower_limit).*rand(N,1) + lower_limit;
 pinv = Cd/Cg ;
+iterations = 50;
+Population = 60;
+Wpower = 1
+Wdelay = 1
+stages = N
 %% Fitness Functions 
-[P,D] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W)
-fprintf("The power in W is %f",P)
-fprintf(")
+%%[P,D] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv)
+%fprintf("\n power in pW is %f",P);
+%fprintf("\n delay in ps is %f",D);
+[Power_g,Delay_g,Gbest] = PSO(iterations,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
+x = 1:iterations;
 
+tiledlayout(2,1)
+nexttile
+plot(x,Power_g)
+title('Power vs Iterations')
+
+nexttile
+plot(x,Delay_g)
+title('delay vs Iterations')
