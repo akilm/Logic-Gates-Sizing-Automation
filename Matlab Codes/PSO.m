@@ -1,5 +1,5 @@
 function [Power_g,Delay_g,Gbest,fit_val,f_max,Delay] = PSO(N,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
- w =  unifrnd(0.18,100*0.18,Population,stages);
+ w = rand(Population,stages)*(200-1)*0.18 + 0.18  %%unifrnd(0.18,100*0.18,Population,stages);
  Power = zeros(1,Population);
  Delay = zeros(N,Population);
  Personal_best_width = w ;
