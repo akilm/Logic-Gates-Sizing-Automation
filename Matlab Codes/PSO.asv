@@ -1,0 +1,13 @@
+function PSO(N,P,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv)
+ w =  unifrnd(0.18,100*0.18,60,3);
+ 
+ for i = 1:N
+    %%Compute Fitness values
+    for j = 1:P
+        W = [w(j,1),w(j,2),w(j,3)]
+        fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv);
+        
+        
+    end
+ end
+ 
