@@ -32,10 +32,10 @@ stages = N
 %%[P,D] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv)
 %fprintf("\n power in pW is %f",P);
 %fprintf("\n delay in ps is %f",D);
-[Power_g,Delay_g,Gbest] = PSO(iterations,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
+[Power_g,Delay_g,Gbest,fit_avg,f_max,Delay] = PSO(iterations,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
 x = 1:iterations;
 
-tiledlayout(3,1)
+tiledlayout(5,1)
 nexttile
 plot(x,Power_g)
 title('Power vs Iterations')
@@ -44,10 +44,19 @@ nexttile
 plot(x,Delay_g)
 title('delay vs Iterations')
 
+
 nexttile
+plot(x,fit_avg)
+title('Average fitness vs Iterations')
+
+nexttile
+plot(x,f_max)
+title('maximum fitness vs Iterations')
+nexttile
+
 for i=1:iterations
-        x = Gbest(i,1)
-        y = Gbest(i,2)
+        x = Gbest(i,1)/1000
+        y = Gbest(i,2)/1000
 end
-plot(x,y)
-title('delay vs Iterations')
+scatter(x,y)
+title('W1 W2')
