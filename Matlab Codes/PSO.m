@@ -1,7 +1,7 @@
 function [Power_g,Delay_g,Gbest,fit_val,f_max,Delay] = PSO(N,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
  w = rand(Population,stages)*(200-1)*0.18 + 0.18  %%unifrnd(0.18,100*0.18,Population,stages);
  Power = zeros(1,Population);
- Delay = zeros(N,Population);
+ Delay = zeros(1,Population);
  Personal_best_width = w ;
  Personal_best_fitness = zeros(1,Population);
  fitness_current = zeros(1,Population);
@@ -15,14 +15,14 @@ function [Power_g,Delay_g,Gbest,fit_val,f_max,Delay] = PSO(N,Population,logic_st
         for k=1:stages
             W(k) = w(j,k)
         end
-        [Power(j),Delay(N,j)] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv);
-        fitness_current(j) = (Wpower*exp(-Power(j)/1000)) + (Wdelay*exp(-Delay(N,j)/1000)/(sqrt(Wpower^2 + Wdelay^2)));
-        fprintf("fitness %f",fitness_current(j))
+        [Power(j),Delay(j)] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv);
+        fitness_current(j) = ((Wpower*exp(-Power(j)/1000)) + (Wdelay*exp(-Delay(j)/1000)))/(sqrt(Wpower^2 + Wdelay^2));
+   
         %%Update Personal best location and fitness value
         if(fitness_current(j)>Personal_best_fitness(j))
+            Personal_best_fitness(j) = fitness_current(j);
             for k = 1:stages
                 Personal_best_width(j,k) = w(j,k);
-                Personal_best_fitness(j) = fitness_current(j);
             end
         else
             %% Do nothing , Previous Values retained
@@ -47,8 +47,9 @@ function [Power_g,Delay_g,Gbest,fit_val,f_max,Delay] = PSO(N,Population,logic_st
             end
         end  
     end
-   [Power_g(i),Delay_g(i)] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,Gbest,pinv);
    fit_val(i) = mean(fitness_current)
-   f_max(i) = max(fitness_current)
+   [f_max(i),index] = max(fitness_current)
+   Power_g(i) = Power(index);
+   Delay_g(i) = Delay(index);
  end
  

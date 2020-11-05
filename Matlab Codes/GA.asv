@@ -1,0 +1,73 @@
+function [Power_g,Delay_g,Gbest,fit_val,f_max] = GA(N,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
+w = rand(Population,stages)*((200-1)*0.18) + 0.18;
+w_intermediate = zeros(Population,stages);
+Power = zeros(1,Population);
+Delay = zeros(1,Population);
+Gbest = zeros(N,stages) ;
+f_max = zeros(1,N);
+fit_val = zeros(1,N);
+fitness_current = zeros(1,N);
+Power_g = zeros(1,N);
+Delay_g = zeros(1,N);
+for i =1:N
+    %%Evaluate fitness
+    for j = 1:Population
+        for k=1:stages
+            W(k) = w(j,k);
+        end
+        [Power(j),Delay(j)] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv);
+        fitness_current(j) = ((Wpower*exp(-Power(j)/1000)) + (Wdelay*exp(-Delay(j)/1000)))/(sqrt(Wpower^2 + Wdelay^2));
+    end
+    
+    [val,index] = max(fitness_current); 
+    fit_val(N) = mean(fitness_current);
+    Power_g(N) = Power(index);
+    Delay_g(N) = Delay(index);
+    
+    for k=1:stages         
+            Gbest(N,k) = w(index,k);   
+            f_max(N) = val;     
+    end
+ 
+    %% Select first half based on fitness ranking and remaining to siberia
+    for j = 1:(Population/2)
+        [val,index] = max(fitness_current)
+        fitness_current(index) = -1;
+        for k=1:stages
+            w_intermediate(j,k) = w(index,k)
+        end
+    end
+    
+    %% Generate the remaining population through reproduction
+    for j = (Population/2)+1:Population
+        %% Select two individuals in random for each reproduction
+        x1 = floor(rand()*(Population/2-1)+1);
+        x2 = floor(rand()*(Population/2-1)+1);
+        %% Crossover
+        %% Select in random the different stage widths for each individual that would result in the offspring
+        for k = 1:stages
+            px1 = rand();
+            px2 = rand();
+            if(px1>px2)
+                w_intermediate(j,k) = w(x1,k);
+            else
+                w_intermediate(j,k) = w(x2,k);
+            end
+        end
+        %% Mutation probability
+        Mp = ceil(rand()-0.9) ;   
+        if(Mp == 1)
+            x = floor(rand())*(stages-1)+1;
+            w_intermediate(x,k) = w_intermediate(x,k) + rand()*(9.8)+1;
+        end
+    end
+    w = w_intermediate;
+    disp('printing P ');
+    disp(Power_g);
+    disp('printing D ');
+    disp(Delay);
+    
+end
+        
+        
+        

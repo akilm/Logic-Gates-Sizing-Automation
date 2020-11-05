@@ -23,8 +23,8 @@ lower_limit = Target_um;
 higher_limit = (Target_um)*5;
 W = (higher_limit-lower_limit).*rand(N,1) + lower_limit;
 pinv = Cd/Cg ;
-iterations = 100;
-Population = 100;
+iterations = 50;
+Population = 50;
 Wpower = 1
 Wdelay = 1
 stages = N
@@ -32,9 +32,15 @@ stages = N
 %%[P,D] = fitness(logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,W,pinv)
 %fprintf("\n power in pW is %f",P);
 %fprintf("\n delay in ps is %f",D);
-[Power_g,Delay_g,Gbest,fit_avg,f_max,Delay] = PSO(iterations,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
-x = 1:iterations;
 
+%% Particle Swarm Optimisation
+ [Power_g,Delay_g,Gbest,fit_avg,f_max,Delay] = PSO(iterations,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
+
+
+%% Genetic Algorithm
+%% [Power_g,Delay_g,Gbest,fit_avg,f_max] = GA(iterations,Population,logic_string,Cload,gamma,f,Target_um,FO_4,Vdd,Cg,Cd,pinv,Wpower,Wdelay,stages)
+
+x = 1:iterations;
 tiledlayout(5,1)
 nexttile
 plot(x,Power_g)
