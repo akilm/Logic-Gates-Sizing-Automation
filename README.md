@@ -1,4 +1,4 @@
-# Analog-Design-Sizing-Automation
+# Logic-Gates-Sizing-Automation
 
 ### **Project still under progress** ###
 ## Abstract :   
