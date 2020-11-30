@@ -12,7 +12,3 @@ Matlab : For running the equations and algorithms ; The optimum size of the tran
 
 NGSpice: The Computed sizes are verified for optimum performance using NGSpice.
 
-## Team:
-* Akil M
-* Hariharan OJ
-* Tamil Selvan
